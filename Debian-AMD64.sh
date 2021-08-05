@@ -1,6 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
 pkg install proot -y
-folder=debian_amd64
+folder=debian-amd64fs
 if [ -d "$folder" ]; then
 	first=1
 	echo "skipping downloading"
@@ -54,7 +54,7 @@ command+=" -0"
 command+=" -r $folder -q qemu-x86_64-static"
 command+=" -b /dev"
 command+=" -b /proc"
-command+=" -b debian_amd64/root:/dev/shm"
+command+=" -b debian-amd64fs/root:/dev/shm"
 ## uncomment the following line to have access to the home directory of termux
 #command+=" -b /data/data/com.termux/files/home:/root"
 ## uncomment the following line to mount /sdcard directly to / 
