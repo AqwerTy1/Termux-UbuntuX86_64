@@ -1,12 +1,12 @@
 
 #!/data/data/com.termux/files/usr/bin/bash
 pkg install proot -y
-folder=ubuntu-fs
+folder=debian-i386fs
 if [ -d "$folder" ]; then
 	first=1
 	echo "skipping downloading"
 fi
-tarball="ubuntu-rootfs.tar.xz"
+tarball="debian-rootfs.tar.xz"
 if [ "$first" != 1 ];then
 	if [ ! -f $tarball ]; then
 		echo "Download Rootfs, this may take a while base on your internet speed."
@@ -32,7 +32,7 @@ if [ "$first" != 1 ];then
 		*)
 			echo "unknown architecture"; exit 1 ;;
 		esac
-		wget "https://raw.githubusercontent.com/EXALAB/AnLinux-Resources/master/Rootfs/Ubuntu/${archurl}/ubuntu-rootfs-${archurl}.tar.xz" -O $tarball
+		wget "https://raw.githubusercontent.com/EXALAB/AnLinux-Resources/master/Rootfs/Debian/${archurl}/debian-rootfs-${archurl}.tar.xz" -O $tarball
 	fi
 	cur=`pwd`
 	mkdir -p "$folder"
@@ -41,8 +41,8 @@ if [ "$first" != 1 ];then
 	proot --link2symlink tar -xJf ${cur}/${tarball}||:
 	cd "$cur"
 fi
-mkdir -p ubuntu-binds
-bin=start-ubuntu.sh
+mkdir -p debian-i386binds-binds
+bin=start-debian.sh
 echo "writing launch script"
 cat > $bin <<- EOM
 #!/bin/bash
@@ -55,7 +55,7 @@ command+=" -0"
 command+=" -r $folder -q qemu-i386-static"
 command+=" -b /dev"
 command+=" -b /proc"
-command+=" -b ubuntu-fs/root:/dev/shm"
+command+=" -b debian-i386fs/root:/dev/shm"
 ## uncomment the following line to have access to the home directory of termux
 #command+=" -b /data/data/com.termux/files/home:/root"
 ## uncomment the following line to mount /sdcard directly to / 
